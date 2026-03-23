@@ -19,7 +19,7 @@ and then hot-loads the plugin into the sidebar.
 Install as a Pi package:
 
 ```bash
-pi install npm:@sero-ai/plugin-tetris
+pi install git:https://github.com/monobyte/sero-tetris-plugin.git
 ```
 
 Tetris is a UI-only app — it registers a minimal extension with no agent tools.
