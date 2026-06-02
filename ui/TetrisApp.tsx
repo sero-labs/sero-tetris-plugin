@@ -1,6 +1,6 @@
 // ui/TetrisApp.tsx — Main Tetris component with HD particle effects
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { useAppState } from '@sero-ai/app-runtime';
 import type { TetrisState } from '../shared/types';
 import { DEFAULT_STATE } from '../shared/types';
@@ -476,7 +476,7 @@ export function TetrisApp() {
       ref={containerRef}
       tabIndex={0}
       className="relative flex h-full w-full items-center justify-center bg-[var(--bg-base)] outline-none"
-      style={{ fontFamily: "'DM Sans', sans-serif" }}
+      style={{ fontFamily: "'DM Sans', sans-serif", '--tt-accent': 'var(--brand-primary, #34d399)', '--tt-accent-hover': 'var(--brand-primary-hover, #6ee7b7)', '--tt-accent-foreground': 'var(--brand-primary-foreground, #052e1c)', '--tt-accent-glow': 'var(--brand-primary-muted, rgba(52, 211, 153, 0.12))' } as CSSProperties}
       onFocus={(e) => {
         // Keep focus on container even when clicking children
         if (e.target !== containerRef.current) containerRef.current?.focus();
@@ -620,8 +620,8 @@ export function TetrisApp() {
           <div className="rounded-lg bg-[var(--bg-surface)] p-3">
             <div className="text-xs text-[var(--text-muted)]">High Score</div>
             <div
-              className="text-lg font-bold text-[var(--accent)]"
-              style={{ textShadow: '0 0 8px rgba(212,164,76,0.2)' }}
+              className="text-lg font-bold text-[var(--tt-accent)]"
+              style={{ textShadow: '0 0 8px var(--tt-accent-glow)' }}
             >
               {persisted.highScore.toLocaleString()}
             </div>
@@ -630,9 +630,9 @@ export function TetrisApp() {
           {!game.started || game.gameOver ? (
             <button
               onClick={game.start}
-              className="rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90"
+              className="rounded-lg bg-[var(--tt-accent)] px-4 py-2.5 text-sm font-semibold text-[var(--tt-accent-foreground)] transition-colors hover:bg-[var(--tt-accent-hover)]"
               style={{
-                boxShadow: '0 0 20px rgba(212,164,76,0.2), 0 4px 12px rgba(0,0,0,0.3)',
+                boxShadow: '0 0 20px var(--tt-accent-glow), 0 4px 12px rgba(0,0,0,0.3)',
               }}
             >
               {game.gameOver ? 'Play Again' : 'Start Game'}
@@ -674,15 +674,15 @@ export function TetrisApp() {
               {game.gameOver ? 'Game Over' : 'Tetris'}
             </h2>
             {game.gameOver && (
-              <p className="mt-2 text-lg text-[var(--accent)]">
+              <p className="mt-2 text-lg text-[var(--tt-accent)]">
                 Score: {game.score.toLocaleString()}
               </p>
             )}
             <button
               onClick={game.start}
-              className="mt-4 rounded-lg bg-[var(--accent)] px-6 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90"
+              className="mt-4 rounded-lg bg-[var(--tt-accent)] px-6 py-2.5 text-sm font-semibold text-[var(--tt-accent-foreground)] transition-colors hover:bg-[var(--tt-accent-hover)]"
               style={{
-                boxShadow: '0 0 20px rgba(212,164,76,0.3)',
+                boxShadow: '0 0 20px var(--tt-accent-glow)',
               }}
             >
               {game.gameOver ? 'Play Again' : 'Start Game'}
